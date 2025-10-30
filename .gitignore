@@ -1,0 +1,32 @@
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore SQL database files
+.mdf
+.ldf
+
+# Ignore Power BI files (too large)
+.pbix
+
+# Ignore virtual environments
+venv
+__pycache__
+
+# Ignore temporary and cache files
+.log
+.tmp
+.bak
+
+# Ignore notebook checkpoints
+.ipynb_checkpoints
+
+# Ignore data backups
+.zip
+.rar
+
+# Ignore Streamlit cache
+.streamlit
+
+# Ignore VSCode settings
+.vscode
