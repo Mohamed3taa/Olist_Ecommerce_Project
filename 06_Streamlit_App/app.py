@@ -1,11 +1,10 @@
 # ===============================================================
-# 📊 Olist E-commerce Dashboard | Streamlit + SQL Server + Plotly
+# 📊 Olist E-commerce Dashboard | Streamlit + CSV (Raw Data) + Plotly
 # Author: Mohammad Elbassal
 # ===============================================================
 
 import streamlit as st
 import pandas as pd
-import pyodbc
 import plotly.express as px
 
 st.set_page_config(page_title="Olist E-commerce Dashboard", page_icon="📦", layout="wide")
@@ -14,8 +13,8 @@ st.set_page_config(page_title="Olist E-commerce Dashboard", page_icon="📦", la
 st.markdown("""
 <style>
 .metric-card {
-    text-align:center; background:#f9fafc; padding:18px; border-radius:12px;
-    box-shadow:1px 1px 6px rgba(0,0,0,0.1); margin:4px;
+    text-align:center; background:#f9fafc; padding:18px; border-radius:12px;
+    box-shadow:1px 1px 6px rgba(0,0,0,0.1); margin:4px;
 }
 .metric-label { color:#1f77b4; font-weight:bold; font-size:20px; }
 .metric-value { color:#000; font-weight:700; font-size:26px; margin-top:6px; }
@@ -23,57 +22,39 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.title("📦 Olist E-commerce Interactive Dashboard")
-st.markdown("### Powered by SQL Server • Built with Streamlit & Plotly 💡")
+st.markdown("### Powered by CSV Files (Raw Data) • Built with Streamlit & Plotly 💡")
 st.markdown("---")
 
-# ------------------ Load Data ------------------
+# ------------------ Load Data (تم التعديل ليقرأ من فولدر 01_Raw_Data) ------------------
 @st.cache_data
 def load_data():
     try:
-        conn = pyodbc.connect(
-            'DRIVER={SQL Server};'
-            'SERVER=SasakiKojiro;'
-            'DATABASE=Olist_Ecommerce;'
-            'Trusted_Connection=yes;'
-        )
-    except Exception as e:
-        st.error(f"❌ Could not connect to SQL Server: {e}")
+        # قراءة البيانات من ملفات الـ Raw Data داخل فولدر 01_Raw_Data
+        
+        # تأكد أن هذه الأسماء مطابقة لأسماء الملفات في الـ GitHub Repo
+        df_orders = pd.read_csv("01_Raw_Data/olist_orders_dataset.csv")
+        df_items = pd.read_csv("01_Raw_Data/olist_order_items_dataset.csv")
+        df_customers = pd.read_csv("01_Raw_Data/olist_customers_dataset.csv")
+        df_products = pd.read_csv("01_Raw_Data/olist_products_dataset.csv") 
+        df_reviews = pd.read_csv("01_Raw_Data/olist_order_reviews_dataset.csv")
+        df_payments = pd.read_csv("01_Raw_Data/olist_order_payments_dataset.csv")
+        
+        st.success("✅ Data loaded successfully from '01_Raw_Data' folder!")
+        return df_orders, df_items, df_customers, df_products, df_reviews, df_payments
+        
+    except FileNotFoundError as e:
+        st.error(f"❌ Error loading CSV file: {e}. Make sure the file exists in '01_Raw_Data' folder in your GitHub repo.")
         return [None]*6
-
-    df_orders = pd.read_sql("""
-        SELECT order_id, customer_id, order_status, order_purchase_timestamp, order_delivered_customer_date
-        FROM orders_dataset
-    """, conn)
-    df_items = pd.read_sql("""
-        SELECT order_id, product_id, seller_id, price, freight_value
-        FROM order_items_dataset
-    """, conn)
-    df_customers = pd.read_sql("""
-        SELECT customer_id, customer_unique_id, customer_state, customer_city
-        FROM customers_dataset
-    """, conn)
-    df_products = pd.read_sql("""
-        SELECT product_id, product_category_name
-        FROM products_dataset
-    """, conn)
-    df_reviews = pd.read_sql("""
-        SELECT order_id, review_score
-        FROM order_reviews_dataset
-    """, conn)
-    df_payments = pd.read_sql("""
-        SELECT order_id, payment_type
-        FROM order_payments_dataset
-    """, conn)
-
-    conn.close()
-    return df_orders, df_items, df_customers, df_products, df_reviews, df_payments
+    except Exception as e:
+        st.error(f"❌ An error occurred: {e}")
+        return [None]*6
 
 df_orders, df_items, df_customers, df_products, df_reviews, df_payments = load_data()
 if df_orders is None:
     st.stop()
-st.success("✅ Data loaded successfully from SQL Server!")
 
 # ------------------ Preprocessing ------------------
+# (باقي الكود يظل كما هو تماماً)
 df_orders['order_purchase_timestamp'] = pd.to_datetime(df_orders['order_purchase_timestamp'], errors='coerce')
 df_orders['order_delivered_customer_date'] = pd.to_datetime(df_orders['order_delivered_customer_date'], errors='coerce')
 
@@ -218,7 +199,6 @@ st.plotly_chart(fig_reviews, use_container_width=True, key="review")
 # ------------------ Footer ------------------
 st.markdown("---")
 st.markdown("""
-**Developed by [Mohammad Elbassal](https://www.linkedin.com/in/mohammad-elbassal/)**  
-💡 Built using Streamlit • SQL Server • Plotly Express  
+**Developed by [Mohammad Elbassal](https://www.linkedin.com/in/mohammad-elbassal/)** 💡 Built using Streamlit • CSV Files • Plotly Express  
 📅 Project: Olist E-commerce Analytics Dashboard
 """)
