@@ -1,32 +1,86 @@
-# Ignore system files
+# ===============================
+# 🧠 General System Files
+# ===============================
 .DS_Store
 Thumbs.db
+desktop.ini
 
-# Ignore SQL database files
-.mdf
-.ldf
+# ===============================
+# 🗄️ SQL Server Files
+# ===============================
+*.mdf
+*.ldf
+*.bak
 
-# Ignore Power BI files (too large)
-.pbix
+# ===============================
+# 📊 Power BI Files
+# ===============================
+*.pbix
 
-# Ignore virtual environments
-venv
-__pycache__
+# ===============================
+# 🐍 Python / Data Analysis
+# ===============================
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
 
-# Ignore temporary and cache files
-.log
-.tmp
-.bak
+# Jupyter Notebooks checkpoints
+.ipynb_checkpoints/
 
-# Ignore notebook checkpoints
-.ipynb_checkpoints
+# ===============================
+# 🧰 Temporary / Log / Cache Files
+# ===============================
+*.log
+*.tmp
+*.temp
+*.bak
+*.swp
 
-# Ignore data backups
-.zip
-.rar
+# ===============================
+# 💾 Data Backups / Archives
+# ===============================
+*.zip
+*.rar
+*.7z
+*.tar
+*.gz
 
-# Ignore Streamlit cache
-.streamlit
+# ===============================
+# 📈 Streamlit / Dash
+# ===============================
+.streamlit/
 
-# Ignore VSCode settings
-.vscode
+# ===============================
+# 🧩 VSCode / IDE Config
+# ===============================
+.vscode/
+.idea/
+*.code-workspace
+
+# ===============================
+# ⚙️ Windows & Misc
+# ===============================
+ehthumbs.db
+$RECYCLE.BIN/
+
+# ===============================
+# 🔒 Private / Credentials
+# ===============================
+.env
+*.key
+*.pem
+*.crt
+*.cer
+
+# ===============================
+# 📁 Project-specific
+# ===============================
+# Ignore local database files
+02_SQL/Olist_Ecommerce.mdf
+02_SQL/Olist_Ecommerce_log.ldf
+
+# ===============================
+# ✅ End of File
+# ===============================
