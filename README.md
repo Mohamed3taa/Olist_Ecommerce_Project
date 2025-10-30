@@ -53,7 +53,7 @@ This project delivers a complete end-to-end data analytics pipeline using the Ol
 | 🌐 **Live Streamlit App** | [Click to Open Dashboard](https://olistecommerceproject-nss74ekl4shvnkwxtyyz3b.streamlit.app/) |
 | 💻 **GitHub Repository** | `Olist_Ecommerce_Project` |
 | 📊 **Dataset Source (Kaggle)** | [Brazilian E-Commerce Dataset — Olist](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce) |
-| 📓 **Colab Notebook** | Open Here (Replace with actual link when available) |
+| 📓 **Colab Notebook** | Open Here (https://colab.research.google.com/drive/1mqzbSX217TnlclAL1gcyc_-KQNo0EDej?usp=sharing) |
 
 ---
 
